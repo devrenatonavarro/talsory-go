@@ -1,0 +1,27 @@
+# Binaries and compiled files
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+matrix-service
+
+# Architecture specific extensions
+*.a
+*.o
+
+# Environment variables
+.env
+!.env.example
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
