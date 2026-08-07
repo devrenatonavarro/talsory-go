@@ -43,9 +43,11 @@ func main() {
 	// Initialize Clients & Handlers
 	nodeClient := client.NewNodeClient(cfg.NodeAPIURL, cfg.HTTPTimeout)
 	matrixHandler := handlers.NewMatrixHandler(nodeClient)
+	authHandler := handlers.NewAuthHandler(cfg)
 
 	// Register Public Routes
 	app.Get("/health", matrixHandler.HandleHealth)
+	app.Post("/api/v1/auth/login", authHandler.HandleLogin)
 
 	// API Group /api/v1
 	api := app.Group("/api/v1")

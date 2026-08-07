@@ -15,7 +15,7 @@ import (
 
 // NodeClient interface defines the contract for sending matrix statistics to the Node.js API.
 type NodeClient interface {
-	SendStats(ctx context.Context, q, r [][]float64) (interface{}, error)
+	SendStats(ctx context.Context, authHeader string, q, r [][]float64) (interface{}, error)
 }
 
 type nodeClient struct {
@@ -47,7 +47,7 @@ func (e *ErrBadGateway) Error() string {
 }
 
 // SendStats sends Q and R matrices to POST {NODE_API_URL}/api/v1/stats and returns the parsed stats.
-func (c *nodeClient) SendStats(parentCtx context.Context, q, r [][]float64) (interface{}, error) {
+func (c *nodeClient) SendStats(parentCtx context.Context, authHeader string, q, r [][]float64) (interface{}, error) {
 	endpoint := fmt.Sprintf("%s/api/v1/stats", c.baseURL)
 
 	payload := models.NodeStatsPayload{
@@ -70,6 +70,9 @@ func (c *nodeClient) SendStats(parentCtx context.Context, q, r [][]float64) (int
 		return nil, &ErrBadGateway{Message: fmt.Sprintf("error creando solicitud hacia Node API: %v", err)}
 	}
 	req.Header.Set("Content-Type", "application/json")
+	if authHeader != "" {
+		req.Header.Set("Authorization", authHeader)
+	}
 
 	resp, err := c.httpClient.Do(req)
 	if err != nil {

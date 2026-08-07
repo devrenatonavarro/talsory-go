@@ -58,8 +58,9 @@ func (h *MatrixHandler) HandleQR(c *fiber.Ctx) error {
 		})
 	}
 
-	// Call downstream Node.js API with context timeout
-	stats, err := h.nodeClient.SendStats(c.UserContext(), q, r)
+	// Call downstream Node.js API with context timeout and forwarded auth header
+	authHeader := c.Get(fiber.HeaderAuthorization)
+	stats, err := h.nodeClient.SendStats(c.UserContext(), authHeader, q, r)
 	if err != nil {
 		var badGatewayErr *client.ErrBadGateway
 		if errors.As(err, &badGatewayErr) {

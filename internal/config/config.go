@@ -11,11 +11,13 @@ import (
 
 // Config holds the application configuration parameters.
 type Config struct {
-	Port          string
-	NodeAPIURL    string
-	HTTPTimeout   time.Duration
-	AuthEnabled   bool
-	JWTSecret     string
+	Port        string
+	NodeAPIURL  string
+	HTTPTimeout time.Duration
+	AuthEnabled bool
+	JWTSecret   string
+	AuthUser    string
+	AuthPass    string
 }
 
 // LoadConfig loads configuration from environment variables or .env file.
@@ -37,6 +39,8 @@ func LoadConfig() *Config {
 	authEnabled, _ := strconv.ParseBool(authEnabledStr)
 
 	jwtSecret := getEnv("JWT_SECRET", "supersecretkey")
+	authUser := getEnv("AUTH_USER", "Talsory")
+	authPass := getEnv("AUTH_PASS", "Prueba@2026")
 
 	return &Config{
 		Port:        port,
@@ -44,6 +48,8 @@ func LoadConfig() *Config {
 		HTTPTimeout: time.Duration(timeoutMs) * time.Millisecond,
 		AuthEnabled: authEnabled,
 		JWTSecret:   jwtSecret,
+		AuthUser:    authUser,
+		AuthPass:    authPass,
 	}
 }
 
