@@ -173,8 +173,8 @@ func TestHandleQR_NodeAPIDown_Returns502(t *testing.T) {
 		t.Fatalf("Error en petición /api/v1/matrix/qr: %v", err)
 	}
 
-	if resp.StatusCode != http.StatusBadGateway {
-		t.Errorf("Código de estado esperado 502 Bad Gateway cuando Node API está inalcanzable, obtenido %d", resp.StatusCode)
+	if resp.StatusCode != http.StatusServiceUnavailable {
+		t.Errorf("Código de estado esperado 503 Service Unavailable cuando Node API está inalcanzable, obtenido %d", resp.StatusCode)
 	}
 
 	body, _ := io.ReadAll(resp.Body)

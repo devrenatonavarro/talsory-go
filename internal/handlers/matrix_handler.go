@@ -64,13 +64,13 @@ func (h *MatrixHandler) HandleQR(c *fiber.Ctx) error {
 	if err != nil {
 		var badGatewayErr *client.ErrBadGateway
 		if errors.As(err, &badGatewayErr) {
-			return c.Status(http.StatusBadGateway).JSON(models.ErrorResponse{
-				Error:   "Error de comunicación con el servicio externo Node.js (502 Bad Gateway)",
+			return c.Status(http.StatusServiceUnavailable).JSON(models.ErrorResponse{
+				Error:   "Error de comunicación con el servicio externo Node.js",
 				Details: badGatewayErr.Message,
 			})
 		}
 
-		return c.Status(http.StatusBadGateway).JSON(models.ErrorResponse{
+		return c.Status(http.StatusServiceUnavailable).JSON(models.ErrorResponse{
 			Error:   "Error llamando a la API de Node.js",
 			Details: err.Error(),
 		})
