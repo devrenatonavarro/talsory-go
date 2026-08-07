@@ -27,7 +27,7 @@ func LoadConfig() *Config {
 	}
 
 	port := getEnv("PORT", "3000")
-	nodeURL := getEnv("NODE_API_URL", "http://localhost:4000")
+	nodeURL := getEnv("NODE_API_URL", "https://talsory-express.lobitoconsulting.com")
 	timeoutMsStr := getEnv("HTTP_TIMEOUT_MS", "5000")
 
 	timeoutMs, err := strconv.Atoi(timeoutMsStr)

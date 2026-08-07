@@ -32,7 +32,7 @@ EXPOSE 12000
 
 # Set environment defaults
 ENV PORT=12000
-ENV NODE_API_URL=http://localhost:4000
+ENV NODE_API_URL=https://talsory-express.lobitoconsulting.com
 ENV HTTP_TIMEOUT_MS=5000
 ENV AUTH_ENABLED=false
 
